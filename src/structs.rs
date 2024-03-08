@@ -149,7 +149,7 @@ enum ManagementExcessDeficit{
 impl From<ManagementExcessDeficit> for String  {
     fn from(state: ManagementExcessDeficit) -> String {
         match state {
-            ManagementExcessDeficit::Buy => "BUY".to_owned(),
+            ManagementExcessDeficit::Buy => "buy".to_owned(),
             ManagementExcessDeficit::Sell => "sell".to_owned(),
         }
     }
@@ -189,5 +189,49 @@ impl FinancialYear {
         return  dates
     }
 }
+// Input ***********************************************************************
+struct Input{
+    fixed_asses: Option<Vec<FixedAsset>>
+}
+// CostCenter **********************************************************************
+enum CostCenterCategory{
+    Product,
+    Service,
+    Operational
+}
 
-// CostCenter
+impl From<CostCenterCategory> for String  {
+    fn from(state: CostCenterCategory) -> String {
+        match state {
+            CostCenterCategory::Product => "product".to_owned(),
+            CostCenterCategory::Service => "service".to_owned(),
+            CostCenterCategory::Operational => "operational".to_owned(),
+        }
+    }
+}
+struct CostCenter{
+    id: String,
+    name: String,
+    category: CostCenterCategory,
+    input: Option<Input>,
+}
+
+// Valuation **************************************************************************
+enum EntityCategory{
+    Production
+}
+
+impl From<EntityCategory> for String  {
+    fn from(state: EntityCategory) -> String {
+        match state {
+            EntityCategory::Production => "production".to_owned(),
+        }
+    }
+}
+struct  Valuation {
+    id: String,
+    name: String,
+    financial_year: FinancialYear,
+    category: EntityCategory,
+    cost_centers: Vec<CostCenter>
+     }
