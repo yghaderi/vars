@@ -1,4 +1,5 @@
-mod algo;
+pub mod algo;
+pub mod demo_structs;
 pub mod structs;
 
 use crate::structs::{
@@ -33,4 +34,3 @@ pub fn foo() {
     };
     println!("{:?}", fy.dates())
 }
-

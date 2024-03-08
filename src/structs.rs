@@ -186,7 +186,7 @@ impl FinancialYear {
                 .unwrap(),
             )
         }
-        return dates;
+        dates
     }
 }
 // Input ***********************************************************************
@@ -194,7 +194,7 @@ pub struct Input {
     pub fixed_assets: Option<Vec<FixedAsset>>,
 }
 // CostCenter **********************************************************************
-enum CostCenterCategory {
+pub enum CostCenterCategory {
     Product,
     Service,
     Operational,
@@ -217,7 +217,7 @@ pub struct CostCenter {
 }
 
 // Firm **************************************************************************
-enum FirmCategory {
+pub enum FirmCategory {
     Production,
 }
 
@@ -237,7 +237,7 @@ pub struct Firm {
 }
 
 // FinancialStatements *********************************************************
+#[derive(Debug, PartialEq)]
 pub struct BalanceSheet {
     pub property_plant_and_equipment: u64,
 }
-
