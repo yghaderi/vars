@@ -1,19 +1,15 @@
-mod algo;
-pub mod structs;
+use vars::structs::{FixedAsset, DepreciationMethods, CostAllocation, CostAllocationMethods};
 
-use crate::structs::{
-    CostAllocation, CostAllocationMethods, DepreciationMethods, FinancialYear, FixedAsset,
-};
-use chrono::NaiveDate;
 
-pub fn foo() {
-    let t = FixedAsset {
+#[test]
+fn fixed_asset(){
+    let fa = FixedAsset{
         id: String::from("100"),
         name: String::from("car"),
         book_value: 1_000_000,
         useful_life: 2,
         salvage_value: 200_000,
-        cum_depreciation: 0,
+        cum_depreciation: 100_000,
         depreciation: 0,
         depreciation_method: DepreciationMethods::StraightLine,
         cost_allocation: Some(vec![
@@ -23,14 +19,11 @@ pub fn foo() {
             },
             CostAllocation {
                 method: CostAllocationMethods::Fixed,
-                ratio: 0.5,
+                ratio: 0.8,
             },
         ]),
     };
-    let fy = FinancialYear {
-        date: NaiveDate::from_ymd_opt(2023, 10, 10).unwrap(),
-        length: 5,
-    };
-    println!("{:?}", fy.dates())
+    assert_eq!(450_000, fa.calc_depreciation());
+    assert_eq!(550_000, fa.calc_book_value());
+    assert_eq!(550_000, fa.calc_cum_depreciation());
 }
-
