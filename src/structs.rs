@@ -162,10 +162,35 @@ struct RawMaterial {
     id: String,
     name: String,
     unit: String,
+    rate: u64,
     factor: ExtraChange,
     inventory: Inventory,
-    cost_allocation: CostAllocation,
 }
+// Consumption ***********************************************************************
+enum ConsumptionFactor {
+    Capacity,
+    Qty,
+}
+struct Consumption {
+    raw_material_id: String,
+    ratio: f64,
+    factor: ConsumptionFactor,
+}
+
+// Product ****************************************************************************
+
+struct Product {
+    id: String,
+    name: String,
+    unit: String,
+    rate: u64,
+    factor: ExtraChange,
+    inventory: Inventory,
+    capacity: u64,
+    qty: u64,
+    consumption: Consumption,
+}
+
 // FinancialYear **********************************************************************
 #[derive(Clone, Debug)]
 pub struct FinancialYear {
@@ -239,5 +264,6 @@ pub struct Firm {
 // FinancialStatements *********************************************************
 #[derive(Debug, PartialEq)]
 pub struct BalanceSheet {
-    pub property_plant_and_equipment: u64,
+    pub fixed_asset: u64,
+    pub inventory: u64,
 }

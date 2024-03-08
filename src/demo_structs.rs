@@ -1,6 +1,6 @@
 use crate::structs::{
-    CostAllocation, CostAllocationMethods, CostCenter, CostCenterCategory, DepreciationMethods,
-    FinancialYear, Firm, FirmCategory, FixedAsset, Input,BalanceSheet
+    BalanceSheet, CostAllocation, CostAllocationMethods, CostCenter, CostCenterCategory,
+    DepreciationMethods, FinancialYear, Firm, FirmCategory, FixedAsset, Input,
 };
 use chrono::NaiveDate;
 
@@ -52,8 +52,8 @@ pub fn demo_firm() -> Firm {
     }
 }
 
-pub fn demo_balance_sheet()->BalanceSheet{
+pub fn demo_balance_sheet() -> BalanceSheet {
     BalanceSheet {
-        property_plant_and_equipment: 1_100_000
+        property_plant_and_equipment: 1_100_000,
     }
 }

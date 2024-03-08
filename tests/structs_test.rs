@@ -7,4 +7,3 @@ fn fixed_asset() {
     assert_eq!(550_000, fa.calc_book_value());
     assert_eq!(550_000, fa.calc_cum_depreciation());
 }
-
