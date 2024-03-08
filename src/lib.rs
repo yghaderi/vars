@@ -1,4 +1,5 @@
 mod structs;
+mod algo;
 
 use chrono::NaiveDate;
 use crate::structs::{CostAllocation, CostAllocationMethods, FixedAsset, DepreciationMethods, FinancialYear};

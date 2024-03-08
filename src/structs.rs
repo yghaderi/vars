@@ -1,7 +1,6 @@
 use std::cmp::min;
-use std::ops::Add;
 use std::vec;
-use chrono::{Datelike, NaiveDate, TimeDelta};
+use chrono::NaiveDate;
 
 // CostingMethods *******************************************************************
 enum CostingMethods{
@@ -190,8 +189,8 @@ impl FinancialYear {
     }
 }
 // Input ***********************************************************************
-struct Input{
-    fixed_asses: Option<Vec<FixedAsset>>
+pub struct Input{
+    pub fixed_assets: Option<Vec<FixedAsset>>
 }
 // CostCenter **********************************************************************
 enum CostCenterCategory{
@@ -209,29 +208,34 @@ impl From<CostCenterCategory> for String  {
         }
     }
 }
-struct CostCenter{
-    id: String,
-    name: String,
-    category: CostCenterCategory,
-    input: Option<Input>,
+pub struct CostCenter{
+    pub id: String,
+    pub name: String,
+    pub category: CostCenterCategory,
+    pub input: Option<Input>,
 }
 
-// Valuation **************************************************************************
-enum EntityCategory{
+// Firm **************************************************************************
+enum FirmCategory{
     Production
 }
 
-impl From<EntityCategory> for String  {
-    fn from(state: EntityCategory) -> String {
+impl From<FirmCategory> for String  {
+    fn from(state: FirmCategory) -> String {
         match state {
-            EntityCategory::Production => "production".to_owned(),
+            FirmCategory::Production => "production".to_owned(),
         }
     }
 }
-struct  Valuation {
-    id: String,
-    name: String,
-    financial_year: FinancialYear,
-    category: EntityCategory,
-    cost_centers: Vec<CostCenter>
+pub struct  Firm {
+    pub id: String,
+    pub name: String,
+    pub financial_year: FinancialYear,
+    pub category: FirmCategory,
+    pub cost_centers: Vec<CostCenter>
      }
+
+// FinancialStatements *********************************************************
+pub struct BalanceSheet{
+    pub property_plant_and_equipment: u64
+}
