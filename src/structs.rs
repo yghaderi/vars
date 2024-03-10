@@ -132,18 +132,29 @@ struct NormFinancialRatio {
     begin_improvement_year: u8,
     mature_year: u8,
 }
-
+// Consumption ***********************************************************************
+enum ConsumptionFactor {
+    Capacity,
+    Qty,
+}
+struct Consumption {
+    raw_material_id: String,
+    ratio: f64,
+    factor: ConsumptionFactor,
+}
 // Inventory ****************************************************************************
 enum ManagementExcessDeficit {
     Buy,
-    Sell,
+    Sale,
+    Nothing
 }
 
 impl From<ManagementExcessDeficit> for String {
     fn from(state: ManagementExcessDeficit) -> String {
         match state {
             ManagementExcessDeficit::Buy => "buy".to_owned(),
-            ManagementExcessDeficit::Sell => "sell".to_owned(),
+            ManagementExcessDeficit::Sale => "sale".to_owned(),
+            ManagementExcessDeficit::Nothing => "nothing".to_owned(),
         }
     }
 }
@@ -157,6 +168,15 @@ struct Inventory {
     norm_ratio: NormFinancialRatio,
 }
 
+impl  Inventory {
+    fn consumption(value: u64){
+
+    }
+    fn puy(){}
+    fn sale(){}
+
+}
+
 // RawMaterial *************************************************************************
 struct RawMaterial {
     id: String,
@@ -165,17 +185,9 @@ struct RawMaterial {
     rate: u64,
     factor: ExtraChange,
     inventory: Inventory,
+    consumption: Consumption,
 }
-// Consumption ***********************************************************************
-enum ConsumptionFactor {
-    Capacity,
-    Qty,
-}
-struct Consumption {
-    raw_material_id: String,
-    ratio: f64,
-    factor: ConsumptionFactor,
-}
+
 
 // Product ****************************************************************************
 
