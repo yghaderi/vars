@@ -1,5 +1,6 @@
 use chrono::{Datelike, NaiveDate};
 use std::cmp::min;
+use std::thread::yield_now;
 use std::vec;
 
 // CostingMethods *******************************************************************
@@ -143,38 +144,37 @@ struct Consumption {
     factor: ConsumptionFactor,
 }
 // Inventory ****************************************************************************
-enum ManagementExcessDeficit {
+enum InvManagementExcessDeficit {
     Buy,
     Sale,
-    Nothing
+    Nothing,
 }
 
-impl From<ManagementExcessDeficit> for String {
-    fn from(state: ManagementExcessDeficit) -> String {
+impl From<InvManagementExcessDeficit> for String {
+    fn from(state: InvManagementExcessDeficit) -> String {
         match state {
-            ManagementExcessDeficit::Buy => "buy".to_owned(),
-            ManagementExcessDeficit::Sale => "sale".to_owned(),
-            ManagementExcessDeficit::Nothing => "nothing".to_owned(),
+            InvManagementExcessDeficit::Buy => "buy".to_owned(),
+            InvManagementExcessDeficit::Sale => "sale".to_owned(),
+            InvManagementExcessDeficit::Nothing => "nothing".to_owned(),
         }
     }
 }
-struct ManagementApproach {
-    excess: ManagementExcessDeficit,
-    deficit: ManagementExcessDeficit,
+struct InvManagementApproach {
+    excess: InvManagementExcessDeficit,
+    deficit: InvManagementExcessDeficit,
 }
 struct Inventory {
     qty: f64,
-    management_approach: ManagementApproach,
+    management_approach: InvManagementApproach,
     norm_ratio: NormFinancialRatio,
 }
 
-impl  Inventory {
-    fn consumption(value: u64){
-
-    }
-    fn puy(){}
-    fn sale(){}
-
+struct GenInventory {
+    buy: Option<f64>,
+    sale: Option<f64>,
+    production: Option<f64>,
+    consumption: Option<f64>,
+    inv_qty: f64,
 }
 
 // RawMaterial *************************************************************************
@@ -188,6 +188,10 @@ struct RawMaterial {
     consumption: Consumption,
 }
 
+struct GenRawMaterial {
+    id: String,
+    inventory: GenInventory,
+}
 
 // Product ****************************************************************************
 
@@ -200,7 +204,35 @@ struct Product {
     inventory: Inventory,
     capacity: u64,
     qty: u64,
-    consumption: Consumption,
+    consumption: Vec<Consumption>,
+}
+
+impl Product {
+    fn norm_inv(
+        qty0: f64,
+        norm: f64,
+        buy: f64,
+        sale: f64,
+        production: f64,
+        consumption: f64,
+    ) -> f64 {
+        qty0 + buy - sale +production - consumption
+        0.0
+    }
+    fn need_raw_material(self, rawm: RawMaterial) -> f64 {
+        for i in self.consumption {
+            let mut need_for_cons = 0.0;
+            let mut inv = 0.0;
+            match i.factor {
+                ConsumptionFactor::Capacity => need_for_cons = i.ratio * self.capacity,
+                ConsumptionFactor::Qty => need_for_cons = i.ratio * self.qty,
+            };
+            // match rawm.inventory.management_approach.deficit {
+            //     InvManagementExcessDeficit::Buy =>
+            // }
+        }
+        0.0
+    }
 }
 
 // FinancialYear **********************************************************************
