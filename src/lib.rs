@@ -1,8 +1,7 @@
 pub mod algo;
-pub mod demo_structs;
-pub mod structs;
+pub mod models;
 
-use crate::structs::{
+use crate::models::{
     CostAllocation, CostAllocationMethods, DepreciationMethods, FinancialYear, FixedAsset,
 };
 use chrono::NaiveDate;

@@ -2,7 +2,6 @@ use chrono::{Datelike, NaiveDate};
 use std::cmp::min;
 use std::thread::yield_now;
 use std::vec;
-
 // CostingMethods *******************************************************************
 enum CostingMethods {
     Variable,
@@ -16,6 +15,17 @@ impl From<CostingMethods> for String {
             CostingMethods::Absorption => "absorption".to_owned(),
         }
     }
+}
+
+pub struct RateChange{
+pub date: NaiveDate,
+pub f: f64
+}
+
+pub struct  BaseRateChange{
+pub id: String,
+pub name: String,
+pub rates: Vec<RateChange>
 }
 
 pub struct CostingMethod {
@@ -216,7 +226,7 @@ impl Product {
         production: f64,
         consumption: f64,
     ) -> f64 {
-        qty0 + buy - sale +production - consumption
+        qty0 + buy - sale + production - consumption;
         0.0
     }
     fn need_raw_material(self, rawm: RawMaterial) -> f64 {
@@ -297,10 +307,15 @@ impl From<FirmCategory> for String {
         }
     }
 }
+
+pub struct BaseParam{
+    pub financial_year: FinancialYear,
+    pub base_rate_change: BaseRateChange
+}
 pub struct Firm {
     pub id: String,
     pub name: String,
-    pub financial_year: FinancialYear,
+    pub base_param: BaseParam,
     pub category: FirmCategory,
     pub cost_centers: Vec<CostCenter>,
 }

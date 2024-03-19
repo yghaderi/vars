@@ -4,7 +4,7 @@ pub mod valuation {
     }
 
     pub mod financial_statement {
-        use crate::structs::{BalanceSheet, Firm};
+        use crate::models::{BalanceSheet, Firm};
 
         pub fn balance_sheet(firm: Firm) -> BalanceSheet {
             let mut fixed_asset: u64 = 0;
